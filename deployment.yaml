@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: santa-deployment
+  labels:
+    app: santa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: santa
+  template:
+    metadata:
+      labels:
+        app: santa
+    spec:
+      containers:
+        - name: santa-proj
+          image: ari786/santa:latest
+          resources:
+            limits:
+              memory: 2Gi
+              cpu: 2
+            requests:
+              memory: 1Gi
+              cpu: 1
+          ports:
+            - containerPort: 8080
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: santa-service
+spec:
+  selector:
+    app: santa
+  type: NodePort
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30080
+  
+
