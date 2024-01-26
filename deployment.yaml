@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: santa-deployment
+  namespace: jenkins-ns
   labels:
     app: santa
 spec:
@@ -34,6 +35,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: santa-service
+  namespace: jenkins-ns
 spec:
   selector:
     app: santa
